@@ -1,5 +1,7 @@
 "use strict";
 
+let activeSlideNumber = 1;
+
 const arrowLeft = document.querySelector(".arrow-left");
 const arrowRight = document.querySelector(".arrow-right");
 // const dot1 = document.querySelector("#dots").firstElementChild;
@@ -14,11 +16,12 @@ const hideActiveSlide = () => {
 };
 
 const showSlide = (slideNr) => {
-  document.querySelectorAll(".slide")[slideNr-1].classList.add("active");
-}
+  hideActiveSlide();
+  document.querySelectorAll(".slide")[slideNr - 1].classList.add("active");
+  activeSlideNumber = slideNr;
+};
 
 const changeSlide = (e) => {
-  hideActiveSlide();
   // zgodnie z kliknieta kropką -  dodajemy klase active img o takim numerze
   if (e.target.classList.contains("dot1")) {
     showSlide(1);
@@ -29,13 +32,24 @@ const changeSlide = (e) => {
   }
 };
 
+//dodany listener na kontener, a nie na kazda kropke osobno
 document.querySelector("#dots").addEventListener("click", changeSlide);
 
 const showNextSlide = () => {
-  console.log("next");
+  if (activeSlideNumber === 3) {
+    activeSlideNumber = 1;
+  } else {
+    activeSlideNumber += 1;
+  }
+  showSlide(activeSlideNumber);
 };
 const showPreviousSlide = () => {
-  console.log("prev");
+  if (activeSlideNumber === 1) {
+    activeSlideNumber = 3;
+  } else {
+    activeSlideNumber -= 1;
+  }
+  showSlide(activeSlideNumber);
 };
-arrowLeft.addEventListener("click", showPreviousSlide)
-arrowRight.addEventListener("click", showNextSlide)
+arrowLeft.addEventListener("click", showPreviousSlide);
+arrowRight.addEventListener("click", showNextSlide);
