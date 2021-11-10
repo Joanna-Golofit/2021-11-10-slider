@@ -1,3 +1,5 @@
+"use strict";
+
 const arrowLeft = document.querySelector(".arrow-left");
 const arrowRight = document.querySelector(".arrow-right");
 // const dot1 = document.querySelector("#dots").firstElementChild;
@@ -11,16 +13,29 @@ const hideActiveSlide = () => {
   document.querySelector("img.active").classList.remove("active");
 };
 
+const showSlide = (slideNr) => {
+  document.querySelectorAll(".slide")[slideNr-1].classList.add("active");
+}
+
 const changeSlide = (e) => {
   hideActiveSlide();
   // zgodnie z kliknieta kropką -  dodajemy klase active img o takim numerze
   if (e.target.classList.contains("dot1")) {
-    document.querySelectorAll(".slide")[0].classList.add("active");
+    showSlide(1);
   } else if (e.target.classList.contains("dot2")) {
-    document.querySelectorAll(".slide")[1].classList.add("active");
+    showSlide(2);
   } else {
-    document.querySelectorAll(".slide")[2].classList.add("active");
+    showSlide(3);
   }
 };
 
 document.querySelector("#dots").addEventListener("click", changeSlide);
+
+const showNextSlide = () => {
+  console.log("next");
+};
+const showPreviousSlide = () => {
+  console.log("prev");
+};
+arrowLeft.addEventListener("click", showPreviousSlide)
+arrowRight.addEventListener("click", showNextSlide)
